@@ -5,3 +5,9 @@ typedef struct huffmanTree {
 	hTree *left;
 	hTree *right;
 } hTree;
+
+hTree* createHuffmanTree();
+hTree* mergeNodes(hTree *left, hTree *right);
+hTree* constructHuffmanTree(pQueue *queue);
+int isLeaf(hTree *tree);
+int hTreeEmpty(hTree *tree);

@@ -7,6 +7,7 @@ typedef struct priorityQueue {
 
 pQueue* createPQueue();
 hTree* createNode(char byte, int frequency);
-void enqueueNode(pQueue queue, char byte, int frequency);
-hTree* dequeueNode(pQueue queue);
-int pQueueEmpty(pQueue queue);
+void enqueueNode(pQueue *queue, char byte, int frequency);
+void enqueueParentNode(pQueue *queue, hTree *node);
+hTree* dequeueNode(pQueue *queue);
+int pQueueEmpty(pQueue *queue);
