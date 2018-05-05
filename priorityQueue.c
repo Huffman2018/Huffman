@@ -18,13 +18,13 @@ hTree* createNode(char byte, int frequency) {
 	newNode->right = NULL;
 	return NewNode;
 }
-void enqueueNode(pQueue queue, char byte, int frequency) {
+void enqueueNode(pQueue *queue, char byte, int frequency) {
 	hTree newNode = createNode(byte, frequency);
 	if(pQueueEmpty(queue) || queue->head->frequency >= frequency) {
 		newNode->next = queue->head;
 		queue->head = newNode;
 	} else {
-		hTree* temp = queue->head;
+		hTree *temp = queue->head;
 		while(temp->next != NULL || temp->next->frequency < frequency) {
 			temp = temp->next;
 		}
@@ -33,7 +33,21 @@ void enqueueNode(pQueue queue, char byte, int frequency) {
 	}
 	queue->size++;
 }
-hTree* dequeueNode(pQueue queue) {
+void enqueueParentNode(pQueue *queue, hTree *node) {
+	if(pQueueEmpty(queue) || queue->head->frequency >= node->frequency) {
+		node->next = queue->head;
+		queue->head = node;
+	} else {
+		hTree *temp = queue->head;
+		while(temp->next != NULL || temp->next->frequency >= node->frequency) {
+			temp->temp->next;
+		}
+		node->next = queue->head;
+		queue->head = node;
+	}
+	queue->size++;
+}
+hTree* dequeueNode(pQueue *queue) {
 	if(!pQueueEmpty(queue)){
 		hTree *node = queue->head;
 		node->next = NULL;
@@ -42,6 +56,6 @@ hTree* dequeueNode(pQueue queue) {
 	}
 	return queue;
 }
-int pQueueEmpty(pQueue queue) {
+int pQueueEmpty(pQueue *queue) {
 	return (queue->head == NULL);
 }
