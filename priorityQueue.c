@@ -1,19 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "priorityQueue.h"
+#include "huffmanTree.h"
 
-typedef struct priorityQueue {
-	hTree *head;
-	int size;
-} pQueue;
-typedef struct huffmanTree {
-	char byte;
-	int frequency;
-	hTree *next;
-	hTree *left;
-	hTree *right;
-} hTree;
-
-pQueue* createPQueue {
+pQueue* createPQueue() {
 	pQueue *newQueue = (pQueue*) malloc(sizeof(pQueue));
 	newQueue->head = NULL;
 	newQueue->size = 0;
