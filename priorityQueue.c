@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct priorityQueue {
@@ -27,7 +28,7 @@ hTree* createNode(char byte, int frequency) {
 	newNode->right = NULL;
 	return NewNode;
 }
-void addNodeQueue(pQueue queue, char byte, int frequency) {
+void enqueueNode(pQueue queue, char byte, int frequency) {
 	hTree newNode = createNode(byte, frequency);
 	if(pQueueEmpty(queue) || queue->head->frequency >= frequency) {
 		newNode->next = queue->head;
@@ -42,7 +43,15 @@ void addNodeQueue(pQueue queue, char byte, int frequency) {
 	}
 	queue->size++;
 }
+hTree* dequeueNode(pQueue queue) {
+	if(!pQueueEmpty(queue)){
+		hTree *node = queue->head;
+		node->next = NULL;
+		queue->head = queue->head->next;
+		return node;
+	}
+	return queue;
+}
 int pQueueEmpty(pQueue queue) {
 	return (queue->head == NULL);
 }
-
