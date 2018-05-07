@@ -1,3 +1,6 @@
+#include "priorityQueue.h"
+
+//Huffman Tree
 typedef struct huffmanTree {
 	char byte;
 	int frequency;
@@ -6,8 +9,8 @@ typedef struct huffmanTree {
 	hTree *right;
 } hTree;
 
-hTree* createHuffmanTree();
-hTree* mergeNodes(hTree *left, hTree *right);
-hTree* constructHuffmanTree(pQueue *queue);
-int isLeaf(hTree *tree);
-int hTreeEmpty(hTree *tree);
+hTree* createHuffmanTree();						//Create Huffman Tree
+hTree* mergeNodes(hTree *left, hTree *right);	//Create a father to last 2 nodes of  priority queue
+hTree* constructHuffmanTree(pQueue *queue);		//Construct Huffman Tree using the priority queue
+int isLeaf(hTree *tree);						//Verify if a node has a leaf
+int hTreeEmpty(hTree *tree);					//Verify if huffman tree has empty
