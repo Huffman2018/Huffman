@@ -70,6 +70,9 @@ local.properties
 # Annotation Processing
 .apt_generated
 
+# Makefile
+makefile
+
 ### SublimeText ###
 # cache files for sublime text
 *.tmlanguage.cache
