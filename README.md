@@ -14,7 +14,7 @@ Compress and decompress files using Huffman algorithm.
 
 or:
 
-	compilator.h
+	compilator.sh
 
 ### Who to execute (Terminal):
 
