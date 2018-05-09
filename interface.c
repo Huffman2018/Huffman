@@ -6,6 +6,7 @@
 
 void initScreen() {
 	int choice = -1;
+	endScreenCtrl();
 	while(1) {
 		printf("----- Huffman project -----\n");
 		printf("1) Compress file\n");
@@ -16,10 +17,10 @@ void initScreen() {
 		scanf("%d", &choice);
 		endScreenCtrl();
 		if(choice == 1) {
-			compressFile();
+			//compressFile();		//in development
 			break;
 		} else if(choice == 2) {
-			decompressFile();
+			//decompressFile();		//in development
 			break;
 		} else if(choice == 0) {
 			exitScreen();
@@ -39,7 +40,7 @@ void continueScreen() {
 		printf("Do you want to continue? (Y/N)\n");
 		printf("\n");
 		printf("Option: ");
-		getchar(choice);
+		choice = getchar();
 		endScreenCtrl();
 		choice = toupper(choice);
 		if(choice == 'Y') {

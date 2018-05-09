@@ -1,10 +1,9 @@
-#include "huffmanTree.h"
-
-//Priority Queue
-typedef struct priorityQueue {
+typedef struct huffmanTree hTree;
+typedef struct priorityQueue pQueue;						//Priority Queue
+struct priorityQueue {
 	hTree *head;
 	int size;
-} pQueue;
+};
 
 pQueue* createPQueue();										//Create Priority Queue
 hTree* createNode(char byte, int frequency);				//Create a new node

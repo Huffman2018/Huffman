@@ -126,5 +126,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# GCC Terminal
+*.exe
+*.o
 
-# End of https://www.gitignore.io/api/eclipse,windows,codeblocks,sublimetext
+### CLION ###
+.idea/
+CMakeLists.txt
+cmake-build-debug/
+
+# End of https://www.gitignore.io/api/eclipse,windows,codeblocks,sublimetext,CLION
