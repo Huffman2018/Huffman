@@ -1,5 +1,5 @@
 typedef struct huffmanTree hTree;
-typedef struct priorityQueue pQueue;						//Priority Queue
+typedef struct priorityQueue pQueue;						//Priority Queue struct
 struct priorityQueue {
 	hTree *head;
 	int size;
@@ -11,3 +11,4 @@ void enqueueNode(pQueue *queue, char byte, int frequency);	//Create and add a ne
 void enqueueParentNode(pQueue *queue, hTree *node);			//Add a node in ascending order
 hTree* dequeueNode(pQueue *queue);							//Dequeue the head of priority queue
 int pQueueEmpty(pQueue *queue);								//Verify if priority queue has empty
+void constructPQueue(pQueue *queue, int frequencyTable[]);	//Construct Priority Queue using the frequency table
