@@ -10,7 +10,8 @@ Compress and decompress files using Huffman algorithm.
 	gcc -c interface.c -o interface.o
 	gcc -c main.c -o main.o
 	gcc -c priorityQueue.c -o priorityQueue.o
-	gcc compress.o decompress.o huffmanTree.o interface.o main.o priorityQueue.o -o exec
+	gcc -c utilities.c -o utilities.o
+	gcc compress.o decompress.o huffmanTree.o interface.o main.o priorityQueue.o utilities.o -o executable
 
 or:
 
@@ -18,6 +19,6 @@ or:
 
 ### Who to execute (Terminal):
 
-	exec.exe
+	executable.exe
 
 Enjoy
