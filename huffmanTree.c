@@ -3,7 +3,7 @@
 #include "huffmanTree.h"
 #include "priorityQueue.h"
 
-hTree* createHuffmanTree() {
+hTree* createHTree() {
 	return NULL;
 }
 hTree* mergeNodes(hTree *left, hTree *right) {
@@ -12,8 +12,8 @@ hTree* mergeNodes(hTree *left, hTree *right) {
 	parentNode->right = right;
 	return parentNode;
 }
-hTree* constructHuffmanTree(pQueue *queue) {
-	hTree *parentNode = createHuffmanTree();
+hTree* constructHTree(pQueue *queue) {
+	hTree *parentNode = createHTree();
 	while(queue->head->next != NULL) {
 		parentNode = mergeNodes(dequeueNode(queue), dequeueNode(queue));
 		enqueueParentNode(queue, parentNode);
@@ -26,3 +26,5 @@ int isLeaf(hTree *tree) {
 int hTreeEmpty(hTree *tree) {
 	return (tree == NULL);
 }
+
+
