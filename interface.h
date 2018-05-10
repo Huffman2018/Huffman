@@ -1,4 +1,4 @@
-void initScreen();		//Initial screen
+void endScreenCtrl();	//Clear screen and stdin
 void exitScreen();		//Last screen, after click 'exit'
 void continueScreen();	//After end 'compress' or 'decompress', verify if the user continue
-void endScreenCtrl();	//Clear screen and stdin
+void initScreen();		//Initial screen
