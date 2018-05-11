@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "huffmanTree.h"
 #include "priorityQueue.h"
+#include "utilities.h"
 
 pQueue* createPQueue() {
 	pQueue *newQueue = (pQueue*) malloc(sizeof(pQueue));
@@ -9,7 +10,15 @@ pQueue* createPQueue() {
 	newQueue->size = 0;
 	return newQueue;
 }
-hTree* createNode(char byte, int frequency) {
+void constructPQueue(pQueue *queue, u_int frequencyTable[]) {
+	int a;
+	for(a = 0; a < BYTENUMBER_MAX; a++) {
+		if(frequencyTable[a] != 0) {
+			enqueueNode(queue, a, frequencyTable[a]);
+		}
+	}
+}
+hTree* createNode(u_char byte, int frequency) {
 	hTree *newNode = (hTree*) malloc(sizeof(hTree));
 	newNode->byte = byte;
 	newNode->frequency = frequency;
@@ -18,7 +27,7 @@ hTree* createNode(char byte, int frequency) {
 	newNode->right = NULL;
 	return newNode;
 }
-void enqueueNode(pQueue *queue, char byte, int frequency) {
+void enqueueNode(pQueue *queue, u_char byte, int frequency) {
 	hTree *newNode = createNode(byte, frequency);
 	if(pQueueEmpty(queue) || queue->head->frequency >= frequency) {
 		newNode->next = queue->head;
