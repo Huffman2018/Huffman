@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "huffmanTree.h"
 #include "priorityQueue.h"
+#include "utilities.h"
 
 hTree* createHTree() {
 	return NULL;
@@ -29,12 +30,12 @@ int hTreeEmpty(hTree *tree) {
 void writeHTree(FILE *file, hTree *tree, int *treeSize) {
 	if(isLeaf(tree)) {
 		if(tree->byte == '\\' || tree->byte == '*') {
-			char byte = '\\';
+			u_char byte = '\\';
 			(*treeSize)++;
-			fwrite(&byte, sizeof(char), 1, file);
+			fwrite(&byte, sizeof(u_char), 1, file);
 		}
 		(*treeSize)++;
-		fwrite(&tree->byte, sizeof(char), 1, file);
+		fwrite(&tree->byte, sizeof(u_char), 1, file);
 		return;
 	}
 	if(tree->left != NULL) {

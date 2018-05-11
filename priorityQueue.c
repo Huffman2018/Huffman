@@ -10,7 +10,7 @@ pQueue* createPQueue() {
 	newQueue->size = 0;
 	return newQueue;
 }
-void constructPQueue(pQueue *queue, int frequencyTable[]) {
+void constructPQueue(pQueue *queue, u_int frequencyTable[]) {
 	int a;
 	for(a = 0; a < BYTENUMBER_MAX; a++) {
 		if(frequencyTable[a] != 0) {
@@ -18,7 +18,7 @@ void constructPQueue(pQueue *queue, int frequencyTable[]) {
 		}
 	}
 }
-hTree* createNode(char byte, int frequency) {
+hTree* createNode(u_char byte, int frequency) {
 	hTree *newNode = (hTree*) malloc(sizeof(hTree));
 	newNode->byte = byte;
 	newNode->frequency = frequency;
@@ -27,7 +27,7 @@ hTree* createNode(char byte, int frequency) {
 	newNode->right = NULL;
 	return newNode;
 }
-void enqueueNode(pQueue *queue, char byte, int frequency) {
+void enqueueNode(pQueue *queue, u_char byte, int frequency) {
 	hTree *newNode = createNode(byte, frequency);
 	if(pQueueEmpty(queue) || queue->head->frequency >= frequency) {
 		newNode->next = queue->head;

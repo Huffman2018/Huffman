@@ -1,8 +1,10 @@
+typedef unsigned char u_char;
+typedef unsigned int u_int;
 typedef struct priorityQueue pQueue;
 typedef struct huffmanTree hTree;				//Huffman Tree struct
 struct huffmanTree {
-	char byte;
-	int frequency;
+	u_char byte;
+	u_int frequency;
 	hTree *next;
 	hTree *left;
 	hTree *right;
