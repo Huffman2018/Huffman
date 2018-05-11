@@ -10,6 +10,14 @@ pQueue* createPQueue() {
 	newQueue->size = 0;
 	return newQueue;
 }
+void constructPQueue(pQueue *queue, int frequencyTable[]) {
+	int a;
+	for(a = 0; a < BYTENUMBER_MAX; a++) {
+		if(frequencyTable[a] != 0) {
+			enqueueNode(queue, a, frequencyTable[a]);
+		}
+	}
+}
 hTree* createNode(char byte, int frequency) {
 	hTree *newNode = (hTree*) malloc(sizeof(hTree));
 	newNode->byte = byte;
@@ -59,13 +67,4 @@ hTree* dequeueNode(pQueue *queue) {
 }
 int pQueueEmpty(pQueue *queue) {
 	return (queue->head == NULL);
-}
-
-void constructPQueue(pQueue *queue, int frequencyTable[]) {
-	int a;
-	for(a = 0; a <= BYTENUMBER_MAX; a++) {
-		if(frequencyTable[a] != 0) {
-			enqueueNode(queue, a, frequencyTable[a]);
-		}
-	}
 }
