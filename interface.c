@@ -10,12 +10,11 @@ void endScreenCtrl() {
 	fflush(stdin);
 }
 void exitScreen() {
-	printf("----- Bye! -----\n");
+	printf("----- Bye! -----\n\n");
 }
 void continueScreen() {
 	char choice;
 	while(1) {
-		printf("----- Huffman compress and decompress -----\n");
 		printf("Do you want to continue? (Y/N)\n");
 		printf("\n");
 		printf("Option: ");
