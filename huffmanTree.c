@@ -9,14 +9,19 @@ hTree* createHTree() {
 }
 hTree* constructHTree(pQueue *queue) {
 	hTree *parentNode = createHTree();
+	hTree *node1 = createHTree();
+	hTree *node2 = createHTree();
 	while(queue->head->next != NULL) {
-		parentNode = mergeNodes(dequeueNode(queue), dequeueNode(queue));
+		node1 = dequeueNode(queue);
+		node2 = dequeueNode(queue);
+		parentNode = mergeNodes(node1, node2);
 		enqueueParentNode(queue, parentNode);
 	}
 	return queue->head;
 }
 hTree* mergeNodes(hTree *left, hTree *right) {
-	hTree *parentNode = createNode('\*', (left->frequency + right->frequency));
+	u_int frequency = left->frequency + right->frequency;
+	hTree *parentNode = createNode('\*', frequency);
 	parentNode->left = left;
 	parentNode->right = right;
 	return parentNode;
@@ -27,21 +32,20 @@ int isLeaf(hTree *tree) {
 int hTreeEmpty(hTree *tree) {
 	return (tree == NULL);
 }
-void writeHTree(FILE *file, hTree *tree, int *treeSize) {
+void writeHTree(FILE *file, hTree *tree) {
 	if(isLeaf(tree)) {
 		if(tree->byte == '\\' || tree->byte == '*') {
 			u_char byte = '\\';
-			(*treeSize)++;
 			fwrite(&byte, sizeof(u_char), 1, file);
 		}
-		(*treeSize)++;
 		fwrite(&tree->byte, sizeof(u_char), 1, file);
 		return;
 	}
+	fwrite(&tree->byte, sizeof(u_char), 1, file);
 	if(tree->left != NULL) {
-		writeHTree(file, tree->left, treeSize);
+		writeHTree(file, tree->left);
 	}
 	if(tree->right != NULL) {
-		writeHTree(file, tree->right, treeSize);
+		writeHTree(file, tree->right);
 	}
 }

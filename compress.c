@@ -12,7 +12,7 @@ int fileIsOpen(FILE *file) {
 }
 void constructFrequencyTable(FILE *file, u_int frequencyTable[]) {
 	u_char byte;
-	while(fread(&byte, sizeof(byte), 1, file) == 1) {
+	while(fread(&byte, sizeof(u_char), 1, file) == 1) {
 		frequencyTable[byte]++;
 	}
 }
@@ -23,6 +23,7 @@ void createByteWay(u_char byteWay[][BYTENUMBER_MAX]) {
 	}
 }
 void constructByteWay(u_char byteWay[][BYTENUMBER_MAX], u_char byteWayPass[], hTree *tree, int deep) {
+	int deepPass = deep;
 	if(isLeaf(tree)) {
 		int a;
 		for(a = 0; a < deep; a++) {
@@ -32,24 +33,28 @@ void constructByteWay(u_char byteWay[][BYTENUMBER_MAX], u_char byteWayPass[], hT
 		return;
 	}
 	if(tree->left != NULL) {
+		deepPass = deep + 1;
 		byteWayPass[deep] = '0';
-		constructByteWay(byteWay, byteWayPass, tree->left, deep+1);
+		constructByteWay(byteWay, byteWayPass, tree->left, deepPass);
+		deepPass = deep;
 	}
 	if(tree->right != NULL) {
+		deepPass = deep + 1;
 		byteWayPass[deep] = '1';
 		constructByteWay(byteWay, byteWayPass, tree->right, deep+1);
+		deepPass = deep;
 	}
 }
-void writeHeader(FILE *file, hTree *tree, int *treeSize) {
+void writeHeader(FILE *file, hTree *tree) {
 	u_char byte = 0;
-	fwrite(&byte, sizeof(char), 2, file);
-	writeHTree(file, tree, treeSize);
+	fwrite(&byte, sizeof(u_char), 2, file);
+	writeHTree(file, tree);
 }
 void writeCompressedFile(FILE *inputFile, FILE *outputFile, u_char byteWay[][BYTENUMBER_MAX], int treeSize) {
 	u_char trashSize = 0;
-	u_char treeSizePass = treeSize;
 	u_char byte = 0;
 	u_char bytePass;
+	u_char treeSizePass = treeSize;
 	int bitSize = 0;
 	int bitWayPos = 0;
 	rewind(inputFile);
@@ -61,7 +66,7 @@ void writeCompressedFile(FILE *inputFile, FILE *outputFile, u_char byteWay[][BYT
 				byte = 0;
 				bitSize = 0;
 			}
-			if(byteWay[bytePass][bitWayPos] == 1) {
+			if(byteWay[bytePass][bitWayPos] == '1') {
 				byte = setBit(byte, bitSize);
 			}
 			bitSize++;
@@ -70,7 +75,7 @@ void writeCompressedFile(FILE *inputFile, FILE *outputFile, u_char byteWay[][BYT
 	}
 	fwrite(&byte, sizeof(u_char), 1, outputFile);
 	trashSize = (8 - bitSize) << 5;
-	rewind(inputFile);
+	rewind(outputFile);
 	fwrite(&trashSize, sizeof(u_char), 1, outputFile);
 	fwrite(&treeSizePass, sizeof(u_char), 1, outputFile);
 }
@@ -85,6 +90,7 @@ void compressFile() {
 	u_char byteWayPass[BYTENUMBER_MAX];
 	u_int frequencyTable[BYTENUMBER_MAX];
 	int *treeSize = (int*)malloc(sizeof(int));
+	treeSize = &queue->size;
 	while(!fileIsOpen(inputFile)) {
 		printf("----- Huffman compress and decompress -----\n");
 		printf("Write file name including extension: ");
@@ -104,7 +110,7 @@ void compressFile() {
 	createByteWay(byteWay);												printf(".");
 	constructByteWay(byteWay, byteWayPass, tree, 0); 					printf(".");
 	outputFile = fopen(outputFilename, "w+");							printf(".");
-	writeHeader(outputFile, tree, treeSize);							printf(".");
+	writeHeader(outputFile, tree);										printf(".");
 	writeCompressedFile(inputFile, outputFile, byteWay, *treeSize);		printf(".\n");
 	printf("Compress complete!\n\n");
 	continueScreen();

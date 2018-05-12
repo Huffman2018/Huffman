@@ -9,6 +9,6 @@ int fileIsOpen(FILE *file);																						//Verify if file is open
 void constructFrequencyTable(FILE *file, u_int frequencyTable[]);												//Create frequency byte table
 void createByteWay(u_char byteWay[][BYTENUMBER_MAX]);															//Create byte way based in frequency byte table
 void constructByteWay(u_char byteWay[][BYTENUMBER_MAX], u_char byteWayPass[], hTree *tree, int deep);			//Construct byte way based in input file
-void writeHeader(FILE *file, hTree *tree, int *treeSize);														//Write header of compressed file
+void writeHeader(FILE *file, hTree *tree);																		//Write header of compressed file
 void writeCompressedFile(FILE *inputFile, FILE *outputFile, u_char byteWay[][BYTENUMBER_MAX], int treeSize);	//Write the compressed file in binary mode
 void compressFile();																							//Compress file to .huff using input file and huffman tree
