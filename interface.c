@@ -23,8 +23,10 @@ void continueScreen() {
 		choice = toupper(choice);
 		if(choice == 'Y') {
 			initScreen();
+			break;
 		} else if(choice == 'N') {
 			exitScreen();
+			break;
 		}
 	}
 }
@@ -42,8 +44,10 @@ void initScreen() {
 		endScreenCtrl();
 		if(choice == 1) {
 			compressFile();		//in development
+			break;
 		} else if(choice == 2) {
 			//decompressFile();		//in development
+			break;
 		} else if(choice == 0) {
 			exitScreen();
 			break;

@@ -5,21 +5,21 @@
 #include "utilities.h"
 
 pQueue* createPQueue() {
-	pQueue *newQueue = (pQueue*) malloc(sizeof(pQueue));
+	pQueue *newQueue = (pQueue*)malloc(sizeof(pQueue));
 	newQueue->head = NULL;
 	newQueue->size = 0;
 	return newQueue;
 }
 void constructPQueue(pQueue *queue, u_int frequencyTable[]) {
-	int a;
+	u_int a;
 	for(a = 0; a < BYTENUMBER_MAX; a++) {
 		if(frequencyTable[a] != 0) {
 			enqueueNode(queue, a, frequencyTable[a]);
 		}
 	}
 }
-hTree* createNode(u_char byte, int frequency) {
-	hTree *newNode = (hTree*) malloc(sizeof(hTree));
+hTree* createNode(u_char byte, u_int frequency) {
+	hTree *newNode = (hTree*)malloc(sizeof(hTree));
 	newNode->byte = byte;
 	newNode->frequency = frequency;
 	newNode->next = NULL;
@@ -27,18 +27,18 @@ hTree* createNode(u_char byte, int frequency) {
 	newNode->right = NULL;
 	return newNode;
 }
-void enqueueNode(pQueue *queue, u_char byte, int frequency) {
+void enqueueNode(pQueue *queue, u_char byte, u_int frequency) {
 	hTree *newNode = createNode(byte, frequency);
 	if(pQueueEmpty(queue) || queue->head->frequency >= frequency) {
 		newNode->next = queue->head;
 		queue->head = newNode;
 	} else {
-		hTree *temp = queue->head;
-		while(temp->next != NULL || temp->next->frequency < frequency) {
-			temp = temp->next;
+		hTree *pass = queue->head;
+		while(pass->next != NULL && pass->next->frequency < frequency) {
+			pass = pass->next;
 		}
-		newNode->next = temp->next;
-		temp->next = newNode;
+		newNode->next = pass->next;
+		pass->next = newNode;
 	}
 	queue->size++;
 }
@@ -47,20 +47,20 @@ void enqueueParentNode(pQueue *queue, hTree *node) {
 		node->next = queue->head;
 		queue->head = node;
 	} else {
-		hTree *temp = queue->head;
-		while(temp->next != NULL || temp->next->frequency >= node->frequency) {
-			temp = temp->next;
+		hTree *pass = queue->head;
+		while(pass->next != NULL && pass->next->frequency < node->frequency) {
+			pass = pass->next;
 		}
-		node->next = queue->head;
-		queue->head = node;
+		node->next = pass->next;
+		pass->next = node;
 	}
 	queue->size++;
 }
 hTree* dequeueNode(pQueue *queue) {
 	if(!pQueueEmpty(queue)){
 		hTree *node = queue->head;
-		node->next = NULL;
 		queue->head = queue->head->next;
+		node->next = NULL;
 		return node;
 	}
 	return NULL;
