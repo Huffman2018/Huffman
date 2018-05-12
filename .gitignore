@@ -130,6 +130,10 @@ $RECYCLE.BIN/
 *.exe
 *.o
 
+# Archives for project
+*.txt
+*.huff
+
 ### CLION ###
 .idea/
 CMakeLists.txt
