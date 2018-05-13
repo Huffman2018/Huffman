@@ -12,9 +12,11 @@ pQueue* createPQueue() {
 }
 void constructPQueue(pQueue *queue, u_int frequencyTable[]) {
 	u_int a;
+	u_char aPass;
 	for(a = 0; a < BYTENUMBER_MAX; a++) {
 		if(frequencyTable[a] != 0) {
-			enqueueNode(queue, a, frequencyTable[a]);
+			aPass = a;
+			enqueueNode(queue, aPass, frequencyTable[a]);
 		}
 	}
 }

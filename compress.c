@@ -7,7 +7,7 @@
 #include "priorityQueue.h"
 #include "utilities.h"
 
-void constructFrequencyTable(FILE *file, u_int frequencyTable[]) {
+void constructFrequencyTable(FILE *file, u_int *frequencyTable) {
 	u_char byte;
 	while(fread(&byte, sizeof(u_char), 1, file) == 1) {
 		frequencyTable[byte]++;
@@ -85,7 +85,7 @@ void compressFile() {
 	char outputFilename[FILENAME_MAX];
 	u_char byteWay[BYTENUMBER_MAX][BYTENUMBER_MAX];
 	u_char byteWayPass[BYTENUMBER_MAX];
-	u_int frequencyTable[BYTENUMBER_MAX];
+	u_int frequencyTable[BYTENUMBER_MAX] = {0};
 	int *treeSize = (int*)malloc(sizeof(int));
 	treeSize = &queue->size;
 	while(!fileIsOpen(inputFile)) {
@@ -95,7 +95,7 @@ void compressFile() {
 		getchar();
 		strcpy(outputFilename, inputFilename);
 		strcat(outputFilename, ".huff");
-		inputFile = fopen(inputFilename, "r+");
+		inputFile = fopen(inputFilename, "rb");
 		if(!fileIsOpen(inputFile)) {
 			endScreenCtrl();
 		}
@@ -106,7 +106,7 @@ void compressFile() {
 	tree = constructHTree(queue);										printf(".");
 	createByteWay(byteWay);												printf(".");
 	constructByteWay(byteWay, byteWayPass, tree, 0); 					printf(".");
-	outputFile = fopen(outputFilename, "w+");							printf(".");
+	outputFile = fopen(outputFilename, "wb");							printf(".");
 	writeHeader(outputFile, tree);										printf(".");
 	writeCompressedFile(inputFile, outputFile, byteWay, *treeSize);		printf(".");
 	fclose(inputFile);													printf(".");

@@ -19,10 +19,11 @@ int fileIsHuff(char *filename) {
 	return 1;
 }
 void writeDecompressedFile(FILE *inputFile, FILE *outputFile, hTree *tree, int trashSize) {
-	hTree *treePass = tree;
+	hTree *treePass;
 	u_char byte;
 	u_char bytePrevious;
 	int bitPos;
+	treePass = tree;
 	fread(&byte, sizeof(u_char), 1, inputFile);
 	bytePrevious = byte;
 	while(fread(&byte, sizeof(u_char), 1, inputFile) == 1) {
@@ -31,10 +32,10 @@ void writeDecompressedFile(FILE *inputFile, FILE *outputFile, hTree *tree, int t
 				fwrite(&treePass->byte, sizeof(u_char), 1, outputFile);
 				treePass = tree;
 			}
-			if(isBitSet(bytePrevious, bitPos)) {
-				treePass = treePass->right;
-			} else {
+			if(!isBitSet(bytePrevious, bitPos)) {
 				treePass = treePass->left;
+			} else {
+				treePass = treePass->right;
 			}
 		}
 		bytePrevious = byte;
@@ -44,10 +45,10 @@ void writeDecompressedFile(FILE *inputFile, FILE *outputFile, hTree *tree, int t
 			fwrite(&treePass->byte, sizeof(u_char), 1, outputFile);
 			treePass = tree;
 		}
-		if(isBitSet(bytePrevious, bitPos)) {
-			treePass = treePass->right;
-		} else {
+		if(!isBitSet(bytePrevious, bitPos)) {
 			treePass = treePass->left;
+		} else {
+			treePass = treePass->right;
 		}
 	}
 }
@@ -65,7 +66,7 @@ void decompressFile() {
 		printf("Write file name to decompress, including extension: ");
 		scanf("%[^\n]s", inputFilename);
 		getchar();
-		inputFile = fopen(inputFilename, "r+");
+		inputFile = fopen(inputFilename, "rb");
 		if(!fileIsOpen(inputFile) || !fileIsHuff(inputFilename)) {
 			endScreenCtrl();
 		}
@@ -80,7 +81,7 @@ void decompressFile() {
 	trashSizePass = trashSize;											printf(".");
 	fread(&treeSize, sizeof(u_char), 1, inputFile);						printf(".");
 	tree = reconstructHTree(inputFile, tree);							printf(".");
-	outputFile = fopen(outputFilename, "w+");							printf(".");
+	outputFile = fopen(outputFilename, "wb");							printf(".");
 	writeDecompressedFile(inputFile, outputFile, tree, trashSizePass);	printf(".");
 	fclose(inputFile);													printf(".");
 	fclose(outputFile);													printf(".\n");
