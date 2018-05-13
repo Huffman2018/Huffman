@@ -7,9 +7,6 @@
 #include "priorityQueue.h"
 #include "utilities.h"
 
-int fileIsOpen(FILE *file) {
-	return (file != NULL);
-}
 void constructFrequencyTable(FILE *file, u_int frequencyTable[]) {
 	u_char byte;
 	while(fread(&byte, sizeof(u_char), 1, file) == 1) {
@@ -93,7 +90,7 @@ void compressFile() {
 	treeSize = &queue->size;
 	while(!fileIsOpen(inputFile)) {
 		printf("----- Huffman compress and decompress -----\n");
-		printf("Write file name including extension: ");
+		printf("Write file name to compress, including extension: ");
 		scanf("%[^\n]s", inputFilename);
 		getchar();
 		strcpy(outputFilename, inputFilename);
@@ -111,7 +108,9 @@ void compressFile() {
 	constructByteWay(byteWay, byteWayPass, tree, 0); 					printf(".");
 	outputFile = fopen(outputFilename, "w+");							printf(".");
 	writeHeader(outputFile, tree);										printf(".");
-	writeCompressedFile(inputFile, outputFile, byteWay, *treeSize);		printf(".\n");
+	writeCompressedFile(inputFile, outputFile, byteWay, *treeSize);		printf(".");
+	fclose(inputFile);													printf(".");
+	fclose(outputFile);													printf(".\n");
 	printf("Compress complete!\n\n");
 	continueScreen();
 }

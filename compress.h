@@ -5,7 +5,6 @@ typedef unsigned int u_int;
 typedef struct priorityQueue pQueue;
 typedef struct huffmanTree hTree;
 
-int fileIsOpen(FILE *file);																						//Verify if file is open
 void constructFrequencyTable(FILE *file, u_int frequencyTable[]);												//Create frequency byte table
 void createByteWay(u_char byteWay[][BYTENUMBER_MAX]);															//Create byte way based in frequency byte table
 void constructByteWay(u_char byteWay[][BYTENUMBER_MAX], u_char byteWayPass[], hTree *tree, int deep);			//Construct byte way based in input file
