@@ -12,6 +12,7 @@ struct huffmanTree {
 
 hTree* createHTree();								//Create Huffman Tree
 hTree* constructHTree(pQueue *queue);				//Construct Huffman Tree using the priority queue
+hTree* reconstructHTree(FILE *file, hTree *tree);	//Reconstruct Huffman Tree placed in compressed file
 hTree* mergeNodes(hTree *left, hTree *right);		//Create a father to last 2 nodes of  priority queue
 int isLeaf(hTree *tree);							//Verify if a node has a leaf
 int hTreeEmpty(hTree *tree);						//Verify if huffman tree has empty

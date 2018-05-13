@@ -43,10 +43,10 @@ void initScreen() {
 		scanf("%d", &choice);
 		endScreenCtrl();
 		if(choice == 1) {
-			compressFile();		//in development
+			compressFile();
 			break;
 		} else if(choice == 2) {
-			//decompressFile();		//in development
+			decompressFile();
 			break;
 		} else if(choice == 0) {
 			exitScreen();

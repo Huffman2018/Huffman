@@ -19,6 +19,21 @@ hTree* constructHTree(pQueue *queue) {
 	}
 	return queue->head;
 }
+hTree* reconstructHTree(FILE *file, hTree *tree) {
+	u_char byte;
+	fread(&byte, sizeof(u_char), 1, file);
+	if(byte == '*') {
+		tree = createNode(byte, 0);
+		tree->left = reconstructHTree(file, tree->left);
+		tree->right = reconstructHTree(file, tree->right);
+	} else if(byte == '\\') {
+		fread(&byte, sizeof(u_char), 1, file);
+		tree = createNode(byte, 0);
+	} else {
+		tree = createNode(byte, 0);
+	}
+	return tree;
+}
 hTree* mergeNodes(hTree *left, hTree *right) {
 	u_int frequency = left->frequency + right->frequency;
 	hTree *parentNode = createNode('\*', frequency);
