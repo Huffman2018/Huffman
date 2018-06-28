@@ -129,6 +129,7 @@ $RECYCLE.BIN/
 # GCC Terminal
 *.exe
 *.o
+executable
 
 # Archives for project
 *.txt
