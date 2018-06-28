@@ -6,8 +6,15 @@
 #include "utilities.h"
 
 void endScreenCtrl() {
+	#if linux || LINUX || Linux || UNIX
+	printf("\e[H\e[2J");
+	__fpurge(stdin);
+	#elif defined WIN32
 	system("cls");
 	fflush(stdin);
+	#else
+	printf("\nNo recognized system");
+	#endif
 }
 void exitScreen() {
 	printf("----- Bye! -----\n\n");

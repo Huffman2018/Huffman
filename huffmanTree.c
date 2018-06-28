@@ -31,7 +31,7 @@ hTree* reconstructHTree(FILE *file, hTree *tree) {
 			fread(&byte, sizeof(u_char), 1, file);
 			tree = createNode(byte, 0);
 		} else {
-			createNode(byte, 0);
+			tree = createNode(byte, 0);
 		}
 	}
 }
